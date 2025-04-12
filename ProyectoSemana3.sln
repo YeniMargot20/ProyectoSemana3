@@ -1,31 +1,75 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156 d17.13
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoSemana3", "ProyectoSemana3\ProyectoSemana3.csproj", "{A75E75DB-6C64-42A9-9242-7D437AE194E2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrabajodeCampo3", "..\..\..\Downloads\PracticadeCampo3\TrabajodeCampo3\TrabajodeCampo3.csproj", "{FBA4DEE5-3783-4AF3-A69F-6A0795096C0A}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A75E75DB-6C64-42A9-9242-7D437AE194E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A75E75DB-6C64-42A9-9242-7D437AE194E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A75E75DB-6C64-42A9-9242-7D437AE194E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A75E75DB-6C64-42A9-9242-7D437AE194E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBA4DEE5-3783-4AF3-A69F-6A0795096C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBA4DEE5-3783-4AF3-A69F-6A0795096C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBA4DEE5-3783-4AF3-A69F-6A0795096C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBA4DEE5-3783-4AF3-A69F-6A0795096C0A}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {92015848-99EF-4319-9FAF-52DDD41C65C6}
-	EndGlobalSection
-EndGlobal
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProyectoSemana3
+{
+    public class Cola
+    {
+        // campos  o atributos 
+        private NodoCola frente, final, nuevo;
+        // metodo constructor
+        public Cola()
+        {
+            frente = null;
+            final = null;
+        }
+        // metodo para crear si esta vacia o no esta vacia 
+        public bool EsVacia()
+        {
+            return frente == null;// iniciando en Null por que la cola esta vacia 
+        }
+        // metodo para encolar 
+        public void Encolar(int valor)
+        {
+            nuevo = new NodoCola(valor);
+            if (EsVacia()) // preguntando por la cola vacia 
+            {
+                frente = nuevo;// iniciando 
+                final = nuevo;
+            }
+            else
+            {
+                final.sig = nuevo;
+                final = nuevo;
+            }
+        }
+        // Metodo desencolar 
+        public int Desencolar()
+        {
+            int valor;
+            if (!EsVacia())// Si no esta vacio..?
+            {
+                valor = frente.info;
+                frente = frente.sig;
+                if (frente == null) final = null;
+            }
+            else
+                valor = 0;
+            return valor;
+
+        }
+        //Metodo Ver Frente
+        public int verFrente()
+        {
+            if (EsVacia())
+                return frente.info;
+            else
+                return 0;
+        }
+        // metodo mostrar cola 
+        public void Mostrar()
+        {
+            NodoCola ptr = frente;
+            Console.WriteLine("\n---LISTADO DE ELEMENTOS---");
+            while (ptr != null)
+            {
+                Console.Write("{0},", ptr.info);
+                ptr = ptr.sig;
+            }
+
+        }
+    }
+}
